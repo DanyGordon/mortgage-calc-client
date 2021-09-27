@@ -21,7 +21,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(record, index) in records" :key="record.id">
+          <tr v-for="(record, index) in items" :key="record.id">
             <td>{{ index + 1 }}</td>
             <td>{{ record.bankname }}</td>
             <td>{{ record.date | date }}</td>
