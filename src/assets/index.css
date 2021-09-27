@@ -1,0 +1,120 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.entry-background {
+  display:-webkit-flex;
+  display:-ms-flexbox;
+  display:flex;
+  -webkit-flex-direction:column;
+  -ms-flex-direction:column;
+  flex-direction:column;
+  -webkit-align-items:center;
+  -ms-flex-align:center;
+  align-items:center;
+  padding-top:5rem;
+  min-height: 100vh;
+  background: #B1BFDC;
+}
+
+.card-login {
+  padding: 2rem;
+}
+
+.logo-container h4 {
+  width: 100%;
+  text-align: center;
+}
+
+a.flow-link.bottom-right {
+  position: absolute;
+  right: 2rem;
+  bottom: 2rem;
+  display: flex;
+}
+
+.page-title {
+  display: flex;
+  margin-bottom: 2rem;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(51,51,51,.12);
+}
+
+.page-title h3 {
+  margin: 0;
+  font-size: 2rem;
+}
+
+.page-content {
+  margin: 5rem 15rem;
+  width: calc(100% - 30rem);
+}
+
+.app-loader,
+.currency-line,
+.page-title {
+  display:-webkit-flex;
+  display:-ms-flexbox;
+  display:flex;
+}
+  
+.app-loader {
+  width:100%;
+  -webkit-justify-content:center;
+  -ms-flex-pack:center;
+  justify-content:center;
+  padding-top:2rem;
+}
+
+.c3-tooltip-container {
+  background: rgb(255, 255, 255);
+  box-shadow: rgb(202 202 202) 0px 0px 6px 0px;
+  padding: .25rem;
+  max-width: 200px;
+}
+
+tr[class^="c3-tooltip-name"] {
+  display: flex;
+  flex-direction: column;
+}
+
+tr[class^="c3-tooltip-name"] td.name {
+  padding: .5rem;
+  font-weight: 600;
+}
+
+tr[class^="c3-tooltip-name"] td.value {
+  padding: .5rem;
+}
+
+.icon-append {
+  position: absolute;
+  top: .75rem;
+  right: .75rem;
+}
+
+.icon-prepend {
+  position: absolute;
+  top: .75rem;
+  left: .75rem;
+}
+
+.icon-bold {    
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.separator {
+  margin-right: .5rem !important;
+  height: 50px;
+  border-right: 1px solid #cacaca;
+}
+
+.btn-right {
+  display: flex;
+  justify-content: flex-end;
+}
