@@ -77,6 +77,12 @@ const routes = [
       auth: true
     }
   },
+  {
+    path: '*',
+    redirect: {
+      path: '/',
+    }
+  }
 ]
 
 const router = new VueRouter({
