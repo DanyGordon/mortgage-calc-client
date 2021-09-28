@@ -31,6 +31,7 @@
         :next-text="'Forward'"
         :container-class="'pagination center'"
         :page-class="'waves-effect'"
+        :active-class="'blue-grey lighten-1'"
       />
     </div>
   </div>
@@ -40,6 +41,14 @@
 import paginationMixin from '@/mixins/pagination.mixin'
 
 export default {
+  metaInfo() { 
+    return {
+      title: this.$title('History'),
+      meta: [
+        { name: 'Description', content: 'Simple Application to calculate Mortgage.' },
+      ]
+    }
+  },
   mixins: [paginationMixin],
   data: () => ({
     loading: false,

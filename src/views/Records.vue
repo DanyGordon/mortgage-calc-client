@@ -27,7 +27,7 @@
             <td>{{ record.date | date }}</td>
             <td>{{ record.initialloan | currency }}</td>
             <td>
-              <a class="btn-floating action darken-1 modal-trigger mr-1 ml-1" :href="`#${record.id}`" 
+              <a class="btn-floating action red accent-4 modal-trigger mr-1 ml-1" :href="`#${record.id}`" 
                 @click.prevent="targetDelete(record.id)"
               >
                 <i class="material-icons">delete</i>
@@ -51,6 +51,7 @@
         :next-text="'Forward'"
         :container-class="'pagination center'"
         :page-class="'waves-effect'"
+        :active-class="'blue-grey lighten-1'"
       />
     </div>
 
@@ -71,6 +72,14 @@
 import paginationMixin from '@/mixins/pagination.mixin'
 
 export default {
+  metaInfo() { 
+    return {
+      title: this.$title(`${this.bank.name} Records`),
+      meta: [
+        { name: 'Description', content: 'Simple Application to calculate Mortgage.' },
+      ]
+    }
+  },
   mixins: [paginationMixin],
   data: () => ({
     loading: false,

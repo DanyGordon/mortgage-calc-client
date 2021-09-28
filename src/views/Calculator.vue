@@ -38,7 +38,7 @@
           <div class="calculator-details__chart">
             <Chart :chartData="dataSet" :key="dataSet[0].value" />
           </div>
-          <div class="calculator-details__info">
+          <section class="calculator-details__info">
             <h6 class="info-title">How is my monthly payment calculated?</h6>
             <table>
               <tbody>
@@ -51,7 +51,7 @@
                 <td>Total monthly payment = {{ monthlyPayment | currency }}</td>
               </tfoot>
             </table>
-          </div>
+          </section>
         </div>
 
         <div class="button-container">
@@ -67,6 +67,14 @@ import Chart from '@/components/calculator/Chart.vue'
 import CalculatorInput from '@/components/calculator/CalculatorInput.vue';
 
 export default {
+  metaInfo() { 
+    return {
+      title: this.$title('Calculator'),
+      meta: [
+        { name: 'Description', content: 'Simple Application to calculate Mortgage.' },
+      ]
+    }
+  },
   data: () => ({
     loading: false,
     dataSet: [

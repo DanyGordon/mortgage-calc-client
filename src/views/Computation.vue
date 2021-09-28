@@ -95,6 +95,14 @@
 
 <script>
 export default {
+  metaInfo() { 
+    return {
+      title: this.$title(`${this.bankname} Computation ${this.recordId}`),
+      meta: [
+        { name: 'Description', content: 'Simple Application to calculate Mortgage.' },
+      ]
+    }
+  },
   data: () => ({
     loading: null,
     record: null,

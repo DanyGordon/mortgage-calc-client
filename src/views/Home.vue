@@ -31,9 +31,9 @@
             <td>{{ bank.minDownPaymentPercent }}%</td>
             <td>{{ bank.loanTerm }} years</td>
             <td class="actions">
-              <router-link :to="`/bank?action=edit&bank=${bank.name}`" class="btn-floating action red mr-1 ml-1"><i class="material-icons">edit</i></router-link>
-              <a class="btn-floating action darken-1 modal-trigger mr-1 ml-1" :href="`#${bank.name}`" @click.prevent="targetDelete(bank.name)"><i class="material-icons">delete</i></a>
-              <router-link :to="`/calculator?bank=${bank.name}`" class="btn-floating action blue mr-1 ml-1"><i class="material-icons">arrow_forward</i></router-link>
+              <router-link :to="`/bank?action=edit&bank=${bank.name}`" class="btn-floating action grey mr-1 ml-1"><i class="material-icons">edit</i></router-link>
+              <a class="btn-floating action red accent-4 modal-trigger mr-1 ml-1" :href="`#${bank.name}`" @click.prevent="targetDelete(bank.name)"><i class="material-icons">delete</i></a>
+              <router-link :to="`/calculator?bank=${bank.name}`" class="btn-floating action mr-1 ml-1"><i class="material-icons">arrow_forward</i></router-link>
             </td>
           </tr>
         </tbody>
@@ -48,6 +48,7 @@
         :next-text="'Forward'"
         :container-class="'pagination center'"
         :page-class="'waves-effect'"
+        :active-class="'blue-grey lighten-1'"
       />
     </section>
 
@@ -78,6 +79,14 @@
 import paginationMixin from '@/mixins/pagination.mixin'
 
 export default {
+  metaInfo() { 
+    return {
+      title: this.$title('Management'),
+      meta: [
+        { name: 'Description', content: 'Simple Application to calculate Mortgage.' },
+      ]
+    }
+  },
   name: 'Management',
   mixins: [paginationMixin],
   data: () => ({

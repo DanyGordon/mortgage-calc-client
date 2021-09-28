@@ -31,6 +31,14 @@ import BankCreate from '@/components/bank/BankCreate.vue';
 import BankEdit from '@/components/bank/BankEdit.vue';
 
 export default {
+  metaInfo() { 
+    return {
+      title: this.$title('Bank'),
+      meta: [
+        { name: 'Description', content: 'Simple Application to calculate Mortgage.' },
+      ]
+    }
+  },
   data: () => ({
     loading: false,
     actions: ['Create', 'Edit'],

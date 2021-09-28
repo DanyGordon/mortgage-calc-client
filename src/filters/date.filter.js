@@ -12,6 +12,8 @@ export default function dateFilter(value, format = 'date') {
     options.minute = '2-digit';
     options.second = '2-digit';
   }
-
+  if(!value) {
+    return;
+  }
   return new Intl.DateTimeFormat('en-US', options).format(new Date(value));
 }

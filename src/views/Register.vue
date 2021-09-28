@@ -6,9 +6,9 @@
     </div>
     <form @submit.prevent="submitForm">
       <div class="input-field col s12">
-        <input type="text" class="validate" v-model="email"
+        <input id="email" type="text" class="validate" v-model="email"
           :class="{ invalid: ($v.email.$dirty && !$v.email.required) || ($v.email.$dirty && !$v.email.email) }">
-        <label>Email</label>
+        <label for="email">Email</label>
         <span class="helper-text invalid" v-if="$v.email.$dirty && !$v.email.required">
           Field Email is Required!  
         </span>
@@ -17,9 +17,9 @@
         </span>
       </div>
       <div class="input-field col s12">
-        <input type="text" class="validate" v-model="name"
+        <input id="name" type="text" class="validate" v-model="name"
           :class="{ invalid: ($v.name.$dirty && !$v.name.required) || ($v.name.$dirty && !$v.name.minLength) }">
-        <label>Name</label>
+        <label for="name">Name</label>
         <span class="helper-text invalid" v-if="$v.name.$dirty && !$v.name.required">
           Field Name is Required!  
         </span>
@@ -28,9 +28,9 @@
         </span>
       </div>
       <div class="input-field col s12">
-        <input type="password" class="validate" v-model="password"
+        <input id="password" type="password" class="validate" v-model="password"
           :class="{ invalid: ($v.password.$dirty && !$v.password.required) || ($v.password.$dirty && !$v.password.minLength) }">
-        <label>Password</label>
+        <label for="password">Password</label>
         <span class="helper-text invalid" v-if="$v.password.$dirty && !$v.password.required">
           Field Password is Required!  
         </span>
@@ -49,6 +49,14 @@ import { required, minLength, email } from 'vuelidate/lib/validators'
 
 export default {
   name: 'Registr',
+  metaInfo() { 
+    return {
+      title: this.$title('Register'),
+      meta: [
+        { name: 'Description', content: 'Register in our simple Application to calculate Mortgage.' },
+      ]
+    }
+  },
   data: () => ({
     email: '',
     name: '',

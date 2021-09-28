@@ -30,7 +30,7 @@ export default {
       links: [
         { title: 'Management', url: '/', exact: true },
         { title: 'Calculator', url: '/calculator' },
-        { title: 'History', url: '/history' },
+        { title: 'History', url: '/history', exact: true },
       ]
     }
   },

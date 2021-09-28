@@ -1,15 +1,16 @@
 <template>
 <div class="calculator-params__container">
   <div class="calculator-params__image">
-    <img class="image" src="https://cdn.pixabay.com/photo/2019/08/22/15/21/modern-4423814_960_720.png" alt="Home Icons">
+    <img class="image" src="https://cdn.pixabay.com/photo/2019/08/22/15/21/modern-4423814_960_720.png" alt="Home Icons" width="303" height="165">
   </div>
   <form class="calculator-params__form" @submit.prevent="calculatePayment">
     <div class="params-form__price">
       <div class="price__title row align-center">
         <div class="input-field col s6">
-          <input class="calculator-input prepended" type="number" v-model="homePrice"
+          <input id="initial-loan" class="calculator-input prepended" type="number" v-model="homePrice"
             :class="{ invalid: ($v.homePrice.$dirty && !$v.homePrice.required) || ($v.homePrice.$dirty && !$v.homePrice.numeric) || 
             ($v.homePrice.$dirty && !$v.homePrice.between) }">
+          <label for="initial-loan">Home Price</label>
           <div class="icon-prepend icon-bold">$</div>
           <span class="helper-text invalid" v-if="$v.homePrice.$dirty && !$v.homePrice.required">
             Field Initial loan is Required!  
@@ -22,7 +23,7 @@
           </span>
         </div>
         <div class="separator col s1"></div>
-        <span class="col s4">Initial loan</span>
+        <span class="col s4 info-title">Initial loan</span>
       </div>
       <div class="price__range">
         <input class="calculator-range" type="range" :min="minLoan" :max="maxLoan" step="50" v-model.number="homePrice">
@@ -30,7 +31,7 @@
     </div>
     <div class="params-form__inputes row">
       <div class="input-field col s8">
-        <input class="validate prepended" type="number" v-model="minPayment"
+        <input id="down-payment" class="validate prepended" type="number" v-model="minPayment"
           :class="{ invalid: ($v.minPayment.$dirty && !$v.minPayment.required) || ($v.minPayment.$dirty && !$v.minPayment.numeric) || 
             ($v.minPayment.$dirty && !$v.minPayment.minValue) }">
         <div class="icon-prepend icon-bold">$</div>
@@ -43,14 +44,15 @@
         <span class="helper-text invalid" v-if="$v.minPayment.$dirty && !$v.minPayment.minValue">
           Field Down payment value must greater than {{ Math.floor(homePrice * minDownPaymentPercent / 100) }}!  
         </span>
-        <label>Down payment</label>
+        <label for="down-payment">Down payment</label>
       </div>
       <div class="input-field col s4">
-        <input class="validate appended" type="number" min="0" step="0.01" max="100" v-model="minDownPaymentPercent"
+        <input id="down-payment-percent" class="validate appended" type="number" min="0" step="0.01" max="100" v-model="minDownPaymentPercent"
           :class="{ invalid: ($v.minDownPaymentPercent.$dirty && !$v.minDownPaymentPercent.required) || 
             ($v.minDownPaymentPercent.$dirty && !$v.minDownPaymentPercent.decimal) || 
             ($v.minDownPaymentPercent.$dirty && !$v.minDownPaymentPercent.minValue) ||
             ($v.minDownPaymentPercent.$dirty && !$v.minDownPaymentPercent.maxValue) }">
+        <label for="down-payment-percent">Down percent</label>
         <div class="icon-append icon-bold">%</div>
         <span class="helper-text invalid" v-if="$v.minDownPaymentPercent.$dirty && !$v.minDownPaymentPercent.required">
           Field Down payment(%) is Required!  
@@ -64,7 +66,7 @@
         </span>
       </div>
       <div class="input-field col s12">
-        <select ref="bankList" v-model="currentBank">
+        <select id="bank" ref="bankList" v-model="currentBank">
           <option disabled selected>Choose a Bank</option>
           <option 
             v-for="bank in banks" 
@@ -72,7 +74,7 @@
             :key="bank.id"
           >{{ bank.name }}</option>
         </select>
-        <label>Bank</label>
+        <label for="bank">Bank</label>
       </div>
     </div>
     <button class="waves-effect waves-light btn" @click.prevent="calculatePayment">Calculate</button>
@@ -177,7 +179,6 @@ export default {
       return (this.homePrice * this.taxPercentPerYear / 100) / 12;
     },
     calculateMinPayment() {
-      console.log(this.homePrice, this.minDownPaymentPercent);
       this.minPayment = Math.floor(this.homePrice * this.minDownPaymentPercent / 100);
     },
     calculateMinPaymentPercent() {

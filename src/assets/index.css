@@ -129,6 +129,11 @@ input.prepended {
   justify-content: flex-end;
 }
 
+.info-title {
+  font-size: 1.2;
+  font-weight: 500;
+}
+
 input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button {
   -webkit-appearance: none;
@@ -147,4 +152,16 @@ input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
+}
+
+.btn {
+  background: #5a7582;
+}
+
+.btn:hover, .btn:focus {
+  background: #7792a0;
+}
+
+.pagination{
+  margin-top: 2rem;
 }

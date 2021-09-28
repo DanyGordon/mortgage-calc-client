@@ -175,7 +175,6 @@ export default {
         .map(bank => Object.keys(bank)
           .filter(k => k !== 'id')
           .forEach(k => this[k] = bank[k]));
-      console.log(this.banks);
     },
     async submitForm() {
       if (this.$v.$invalid) {
