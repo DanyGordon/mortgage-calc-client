@@ -50,11 +50,10 @@ export default {
         commit('setError', err);
       }
     },
-    async logout({ commit }) {
+    async logout() {
       localStorage.removeItem('token');
       localStorage.removeItem('name');
       localStorage.removeItem('uid');
-      commit('clearUserInfo');
     }
   },
   modules: {
