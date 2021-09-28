@@ -68,9 +68,17 @@
               <h6 class="info-title">Monthly payment calculated with next output values:</h6>
               <table>
                 <tbody>
-                  <tr v-for="(data, index) in dataSet" :key="index">
-                    <td><div class="color" :style="{ 'background-color': data.color }"></div>{{ data.label }}</td>
-                    <td style="text-align: right;">{{ data.value | currency }}</td>
+                  <tr>
+                    <td>Principal and interest</td>
+                    <td style="text-align: right;">{{ basesum | currency }}</td>
+                  </tr>
+                  <tr>
+                    <td>Homeowner's insurance</td>
+                    <td style="text-align: right;">{{ insurance / 12 | currency }}</td>
+                  </tr>
+                  <tr>
+                    <td>Property tax</td>
+                    <td style="text-align: right;">{{ initialloan * tax / 100 / 12 | currency }}</td>
                   </tr>
                 </tbody>
               </table>
@@ -103,11 +111,6 @@ export default {
     imprestpercent: 0,
     term: 0,
     interestrate: 0,
-    dataSet: [
-      { value: 257.19, color: '#4d64ff', label: 'Principal & interest', key: 'basesum' },
-      { value: 109.17, color: '#7bd896', label: 'Homeowner\'s insurance', key: 'insurance' },
-      { value: 58.33, color: '#d97f9f', label: 'Property tax', key: 'tax' },
-    ]
   }),
   async mounted() {
     this.loading = true;
@@ -123,17 +126,6 @@ export default {
   methods: {
     updateValues() {
       Object.keys(this.record).forEach(k => this[k] = this.record[k]);
-      this.dataSet.forEach(data => {
-        if(data.key === 'tax') {
-          data.value = this.record.initialloan * this.record[data.key] / 100 / 12;
-        }
-        if(data.key === 'insurance') {
-          data.value = this.record[data.key] / 12;
-        }
-        if(data.key === 'basesum') {
-          data.value = this.record[data.key];
-        }
-      })
     }
   }
 }

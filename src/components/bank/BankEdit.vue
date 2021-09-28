@@ -50,8 +50,8 @@
       </span>
     </div>
     <div class="input-field col s3">
-      <input placeholder="Interest Rate" id="interestRate" 
-        type="text" class="validate" v-model="interestRate"
+      <input placeholder="Interest Rate" id="interestRate" step="0.01"
+        type="number" class="validate" v-model="interestRate"
         :class="{ 
           invalid: ($v.interestRate.$dirty && !$v.interestRate.required) || 
             ($v.interestRate.$dirty && !$v.interestRate.decimal) || ($v.interestRate.$dirty && !$v.interestRate.between) 
@@ -68,8 +68,8 @@
       </span>
     </div>
     <div class="input-field col s3">
-      <input placeholder="Down Payment" id="downPayment" 
-        type="text" class="validate" v-model="minDownPaymentPercent"
+      <input placeholder="Down Payment" id="downPayment" step="0.01"
+        type="number" class="validate" v-model="minDownPaymentPercent"
         :class="{ invalid: ($v.minDownPaymentPercent.$dirty && !$v.minDownPaymentPercent.required) || 
           ($v.minDownPaymentPercent.$dirty && !$v.minDownPaymentPercent.decimal) || 
           ($v.minDownPaymentPercent.$dirty && !$v.minDownPaymentPercent.between) 
@@ -86,8 +86,8 @@
       </span>
     </div>
     <div class="input-field col s3">
-      <input placeholder="Tax Property" id="taxProperty" 
-        type="text" class="validate" v-model="taxPercentPerYear"
+      <input placeholder="Tax Property" id="taxProperty" step="0.01"
+        type="number" class="validate" v-model="taxPercentPerYear"
         :class="{ invalid: ($v.taxPercentPerYear.$dirty && !$v.taxPercentPerYear.required) || 
           ($v.taxPercentPerYear.$dirty && !$v.taxPercentPerYear.decimal) || ($v.taxPercentPerYear.$dirty && !$v.taxPercentPerYear.between) }">
       <label for="taxProperty">Tax Property (%)</label>
@@ -175,6 +175,7 @@ export default {
         .map(bank => Object.keys(bank)
           .filter(k => k !== 'id')
           .forEach(k => this[k] = bank[k]));
+      console.log(this.banks);
     },
     async submitForm() {
       if (this.$v.$invalid) {
@@ -188,9 +189,9 @@ export default {
         name: this.name,
         maxLoan: this.maxLoan,
         loanTerm: this.loanTerm,
-        interestRate: +this.interestRate,
-        minDownPaymentPercent: +this.minDownPaymentPercent,
-        taxPercentPerYear: +this.taxPercentPerYear,
+        interestRate: this.interestRate,
+        minDownPaymentPercent: this.minDownPaymentPercent,
+        taxPercentPerYear: this.taxPercentPerYear,
         insurance: this.insurance,
       }
 

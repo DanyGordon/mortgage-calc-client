@@ -108,6 +108,16 @@ tr[class^="c3-tooltip-name"] td.value {
   font-weight: 700;
 }
 
+input.appended {
+  padding-right: 1rem !important;
+  width: calc(100% - 1rem) !important;
+}
+
+input.prepended {
+  padding-left: 1rem !important;
+  width: calc(100% - 1rem) !important;
+}
+
 .separator {
   margin-right: .5rem !important;
   height: 50px;
@@ -117,4 +127,24 @@ tr[class^="c3-tooltip-name"] td.value {
 .btn-right {
   display: flex;
   justify-content: flex-end;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+input[type="number"]:hover,
+input[type="number"]:focus {
+  -moz-appearance: number-input;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }

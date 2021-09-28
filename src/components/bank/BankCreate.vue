@@ -44,7 +44,7 @@
     </div>
     <div class="input-field col s3">
       <input placeholder="Interest Rate" id="interestRate"
-        type="text" class="validate" v-model="interestRate"
+        type="number" step="0.01" min="0" max="100" class="validate" v-model="interestRate"
         :class="{ 
           invalid: ($v.interestRate.$dirty && !$v.interestRate.required) || 
             ($v.interestRate.$dirty && !$v.interestRate.decimal) || ($v.interestRate.$dirty && !$v.interestRate.between) 
@@ -62,7 +62,7 @@
     </div>
     <div class="input-field col s3">
       <input placeholder="Down Payment" id="downPayment"
-        type="text" class="validate" v-model="minDownPaymentPercent"
+        type="number" step="0.01" min="0" max="100" class="validate" v-model="minDownPaymentPercent"
         :class="{ invalid: ($v.minDownPaymentPercent.$dirty && !$v.minDownPaymentPercent.required) || 
           ($v.minDownPaymentPercent.$dirty && !$v.minDownPaymentPercent.decimal) || 
           ($v.minDownPaymentPercent.$dirty && !$v.minDownPaymentPercent.between) 
@@ -80,7 +80,7 @@
     </div>
     <div class="input-field col s3">
       <input placeholder="Tax Property" id="taxProperty" 
-        type="text" class="validate" v-model="taxPercentPerYear"
+        type="number" step="0.01" min="0" max="100" class="validate" v-model="taxPercentPerYear"
         :class="{ invalid: ($v.taxPercentPerYear.$dirty && !$v.taxPercentPerYear.required) || 
           ($v.taxPercentPerYear.$dirty && !$v.taxPercentPerYear.decimal) || ($v.taxPercentPerYear.$dirty && !$v.taxPercentPerYear.between) }">
       <label for="taxProperty">Tax Property (%)</label>

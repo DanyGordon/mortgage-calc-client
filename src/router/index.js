@@ -86,23 +86,23 @@ const router = new VueRouter({
 
 router.beforeEach(async (to, from, next) => {
   const requireAuth = to.matched.some(record => record.meta.auth);
+  let response;
   try {
-    const response = await fetch('http://localhost:3000/api/v1/account/validateJWT', { headers: { "Authorization": 'Bearer ' + localStorage.getItem('token') } });
-    const parsed = await response.json();
-    if(requireAuth && !parsed['uid']) {
-      next('/login');
-    } else {
-      next()
-    }
-
-    if(!requireAuth && parsed['uid']) {
-      next('/');
-    } else {
-      next();
-    }
-  } catch (err) {
-    console.log(err);
+    const res = await fetch('http://localhost:3000/api/v1/account/validateJWT', { headers: { "Authorization": 'Bearer ' + localStorage.getItem('token') } });
+    response = await res.json();
+  } catch(err) {
+    console.log(err.message);
+  }
+  if(requireAuth && (!response || !response['uid'])) {
     next('/login');
+  } else {
+    next()
+  }
+
+  if(!requireAuth && response && response['uid']) {
+    next('/');
+  } else {
+    next();
   }
 });
 
