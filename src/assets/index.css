@@ -4,6 +4,10 @@
   box-sizing: border-box;
 }
 
+.row {
+  margin-bottom: 0;
+}
+
 .entry-background {
   display:-webkit-flex;
   display:-ms-flexbox;
@@ -19,12 +23,15 @@
   background: #B1BFDC;
 }
 
+.entry-background.row {
+  margin-bottom: 0;
+}
+
 .card-login {
   padding: 2rem;
 }
 
 .logo-container h4 {
-  width: 100%;
   text-align: center;
 }
 
@@ -49,8 +56,9 @@ a.flow-link.bottom-right {
   font-size: 2rem;
 }
 
-.page-content {
-  margin: 5rem 15rem;
+.page-content,
+.row .col.page-content {
+  margin: 4rem 15rem;
   width: calc(100% - 30rem);
 }
 

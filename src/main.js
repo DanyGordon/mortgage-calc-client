@@ -10,7 +10,7 @@ import currencyFilter from '@/filters/currency.filter';
 import dateFilter from '@/filters/date.filter';
 import modalDirective from '@/directives/modal.directive';
 import Loader from '@/components/Loader';
-import 'materialize-css/dist/js/materialize.min';
+import 'materialize-css/dist/js/materialize';
 
 Vue.config.productionTip = false;
 

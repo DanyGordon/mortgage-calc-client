@@ -1,7 +1,6 @@
 export default {
-  bind(el, { value }) {
-    value
-    M.Modal.init(el);
+  bind(el) {
+    M.Modal.init(el, { preventScrolling: false, startingTop: '50%' });
   },
   unbind(el) {
     const modal = M.Modal.getInstance(el);

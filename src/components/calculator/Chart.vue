@@ -3,8 +3,8 @@
 </template>
 
 <script>
-import { generate } from 'c3';
-import { select } from 'd3-selection';
+import { generate } from 'c3/c3.min';
+import { select } from 'd3-selection/dist/d3-selection.min';
 
 import currency from '@/filters/currency.filter';
 

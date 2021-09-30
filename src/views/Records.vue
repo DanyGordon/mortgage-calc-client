@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="row">
     <div class="page-title">
       <h3>Records - {{ name }}</h3>
     </div>
@@ -8,8 +8,8 @@
 
     <p v-else-if="!loading && !records.length" class="center">You have no saved computations. <router-link :to="`/calculator?bank=${name}`">Make now.</router-link></p>
 
-    <div v-else class="page-content">
-      <table>
+    <div v-else class="col s12 page-content">
+      <table class="responsive-table">
         <thead>
           <tr>
             <th>#</th>
@@ -21,8 +21,8 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(record, index) in items" :key="record.id">
-            <td>{{ index + 1 }}</td>
+          <tr v-for="record of items" :key="record.id">
+            <td>{{ record.number }}</td>
             <td>{{ record.bankname }}</td>
             <td>{{ record.date | date }}</td>
             <td>{{ record.initialloan | currency }}</td>
@@ -99,6 +99,7 @@ export default {
     this.name = this.bank.name;
     this.records = await this.$store.dispatch('getAllRecords', { bankId: this.bankId });
     if(this.records && this.records.length) {
+      this.records.forEach((rec, indx) => rec.number = indx + 1);
       this.setup();
     }
     this.loading = false;

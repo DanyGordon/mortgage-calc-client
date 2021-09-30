@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="row">
     <div class="page-title">
       <h3>History</h3>
     </div>
@@ -8,9 +8,9 @@
 
     <p v-else-if="!loading && !banks.length" class="center">You have no banks. <router-link to='/bank'>Add now.</router-link></p>
 
-    <div v-else class="page-content">
+    <div v-else class="col s12 page-content">
       <ul class="collection">
-        <li class="collection-item avatar flex" v-for="(bank, index) in items" :key="index">
+        <li class="collection-item avatar flex hide-on-med-and-down" v-for="bank of items" :key="bank.id">
           <i class="material-icons circle">account_balance</i>
           <div class="description">
             <span class="title">{{ bank.name }}</span>
@@ -20,6 +20,18 @@
             <i class="small material-icons">send</i>
           </router-link>
         </li>
+        <router-link 
+          tag="li" 
+          class="collection-item avatar flex hide-on-large-only" 
+          v-for="(bank, index) in items" :key="index"
+          :to="'/history/' + bank.id"
+        >
+          <i class="material-icons circle">account_balance</i>
+          <div class="description">
+            <span class="title">{{ bank.name }}</span>
+            <p>History Your Computation Mortage to {{ bank.name }}</p>
+          </div>
+        </router-link>
       </ul>
 
       <Paginate 

@@ -1,10 +1,10 @@
 <template>
   <div class="card card-login">
-    <div class="logo-container">
+    <div class="logo-container center-align">
       <h3>Mortgage Calculator</h3>
       <h4>Login</h4>
     </div>
-    <form>
+    <form @submit.prevent="submitForm">
       <div class="input-field col s12">
         <input id="email" type="text" class="validate" v-model="email" 
           :class="{ invalid: ($v.email.$dirty && !$v.email.required) || ($v.email.$dirty && !$v.email.email) }">

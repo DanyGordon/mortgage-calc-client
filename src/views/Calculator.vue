@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="row">
     <div class="page-title">
       <h3>Calculator</h3>
     </div>
@@ -8,7 +8,7 @@
 
     <p v-else-if="!loading && !banks.length" class="center">You have no banks. <router-link to='/bank'>Add now.</router-link></p>
 
-    <div v-else class="calculator-container">
+    <div v-else class="col s12 calculator-container">
 
       <div class="left">
         <CalculatorInput
@@ -16,7 +16,7 @@
           :banks="banks"
           :bank="bank"
           @total="setMonthlyPayment"
-          @setComputation="getComputation"
+          @getComputation="getComputation"
           @updateChart="updateChart"
           @changeCurrent="updateCurrent"
         />
@@ -28,7 +28,7 @@
           <div class="calculator-output__result">
             <div class="output-result__title">
               <h4>{{ monthlyPayment | currency }}</h4>
-              <div class="separator ml-1"></div>
+              <div class="separator ml-1 hide-on-med-and-down"></div>
               <p>Your estimated monthly payment</p>
             </div>
           </div>
@@ -47,7 +47,7 @@
                   <td style="text-align: right;">{{ data.value | currency }}</td>
                 </tr>
               </tbody>
-              <tfoot>
+              <tfoot class="hide-on-med-and-down">
                 <td>Total monthly payment = {{ monthlyPayment | currency }}</td>
               </tfoot>
             </table>
@@ -112,10 +112,6 @@ export default {
       this.computation = computation;
     },
     async saveComputation() {
-      if(!this.$refs.input.checkValidations()) {
-        return;
-      }
-
       const bankId = this.bank.id;
       const formData = { ...this.computation };
       await this.$store.dispatch('createRecord', { bankId, formData});
@@ -136,7 +132,7 @@ export default {
     margin-right: 1rem;
   }
 
-  .calculator-container {
+  .row .col.s12.calculator-container {
     margin: 5rem 15rem;
     width: calc(100% - 30rem);
     display: flex;
@@ -207,5 +203,117 @@ export default {
 
   .ml-1 {
     margin-left: .5rem;
+  }
+
+  @media only screen and (max-width: 700px) {
+    .row .col.s12.calculator-container {
+      width: 100%;
+      margin: 0;
+      margin-left: auto;
+      left: auto;
+      right: auto;
+    }
+  }
+
+  @media only screen and (max-width: 1095px) {
+    .row .col.s12.calculator-container {
+      flex-direction: column;
+    }
+  }
+
+  @media only screen and (min-width: 700px) and (max-width: 1700px) {
+    .row .col.s12.calculator-container {
+      width: calc(100% - 10rem);
+      margin: 2.5rem 5rem;
+    }
+  }
+
+  @media only screen and (max-width: 900px) {
+    .button-container {
+      justify-content: center;
+    }
+
+    .button-container button {
+      width: 80%;
+    }
+  }
+
+  @media only screen and (max-width: 1095px) {
+    .left {
+      width: 100%;
+      padding: 0;
+      border-right: none;
+    }
+
+    .right {
+      width: 100%;
+      margin-top: 2rem;
+    }
+
+    .calculator-output__container {
+      margin-top: 1rem;
+      padding: 0 2rem;
+    }
+
+    .calculator-details__container {
+      padding: 0 2rem;
+      flex-direction: column;
+    }
+
+    .calculator-output__result {
+      width: 100%;
+    }
+
+    .output-result__title {
+      flex-direction: column;
+    }
+
+    .output-result__title p {
+      width: 100%;
+      text-align: center;
+    }
+
+    .calculator-details__container {
+      padding: 0;
+    }
+
+    .calculator-details__chart {
+      width: 100%;
+      order: 1;
+    }
+
+    .calculator-details__info {
+      width: 100%;
+    }
+  }
+
+  @media only screen and (min-width: 993px) {
+    .output-result__title {
+      flex-direction: row;
+    }
+
+    .output-result__title p {
+      width: 175px;
+    }
+  }
+
+  @media only screen and (min-width: 1096px) and (max-width: 1241px) {
+    .left {
+      width: 37%;
+    }
+
+    .right {
+      width: 60%;
+    }
+  }
+
+  @media only screen and (min-width: 1241px) and (max-width: 1450px) {
+    .left {
+      width: 30%;
+    }
+
+    .right {
+      width: 67%;
+    }
   }
 </style>

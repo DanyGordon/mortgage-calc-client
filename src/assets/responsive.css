@@ -1,0 +1,53 @@
+@media only screen and (max-width: 720px) {
+  nav .brand-logo {
+    left: 20%;
+    transform: none;
+  }
+
+  .app-content {
+    padding: 2rem 1rem;
+  }
+
+  .page-title {
+    justify-content: center;
+  }
+  
+  table.responsive-table {
+    display: flex;
+    justify-content: center;
+  }
+
+  table.responsive-table tbody tr {
+    height: 100%;
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .responsive-table th, td {
+    max-width: 100px;
+    white-space: pre-wrap;
+  }
+
+  .btn-right {
+    margin-top: 1rem;
+    justify-content: center;
+  }
+
+  .btn-right .btn {
+    width: 100%;
+  }
+}
+
+@media only screen and (min-width: 992px) {
+  .brand-logo {
+    margin-left: 1rem;
+  }
+}
+
+@media only screen and (max-width: 1450px) {
+  .row .col.page-content {
+    width: 100%;
+    margin: auto;
+  }
+}

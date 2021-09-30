@@ -19,7 +19,7 @@
         Field Name must have as least 2 char length!  
       </span>
     </div>
-    <div class="input-field col s8">
+    <div class="input-field col s6 m8">
       <input placeholder="Maximum Loan" id="maxLoan" 
         type="number" class="validate" v-model="maxLoan"
         :class="{ invalid: ($v.maxLoan.$dirty && !$v.maxLoan.required) || ($v.maxLoan.$dirty && !$v.maxLoan.numeric) || ($v.maxLoan.$dirty && !$v.maxLoan.between) }">
@@ -34,7 +34,7 @@
         Field Maximum Loan value must be between 70K and 4M!  
       </span>
     </div>
-    <div class="input-field col s4">
+    <div class="input-field col s6 m4">
       <input placeholder="Loan Term" id="loanTerm" 
         type="number" class="validate" v-model="loanTerm"
         :class="{ invalid: ($v.loanTerm.$dirty && !$v.loanTerm.required) || ($v.loanTerm.$dirty && !$v.loanTerm.numeric) || ($v.loanTerm.$dirty && !$v.loanTerm.between) }">
@@ -49,7 +49,7 @@
         Field Loan Term value must be between 5 and 30!  
       </span>
     </div>
-    <div class="input-field col s3">
+    <div class="input-field col s6 m3">
       <input placeholder="Interest Rate" id="interestRate" step="0.01"
         type="number" class="validate" v-model="interestRate"
         :class="{ 
@@ -67,7 +67,7 @@
         Field Interest Rate value must be between 0 and 100!  
       </span>
     </div>
-    <div class="input-field col s3">
+    <div class="input-field col s6 m3">
       <input placeholder="Down Payment" id="downPayment" step="0.01"
         type="number" class="validate" v-model="minDownPaymentPercent"
         :class="{ invalid: ($v.minDownPaymentPercent.$dirty && !$v.minDownPaymentPercent.required) || 
@@ -85,7 +85,7 @@
         Field Down Payment value must be between 0 and 100!  
       </span>
     </div>
-    <div class="input-field col s3">
+    <div class="input-field col s6 m3">
       <input placeholder="Tax Property" id="taxProperty" step="0.01"
         type="number" class="validate" v-model="taxPercentPerYear"
         :class="{ invalid: ($v.taxPercentPerYear.$dirty && !$v.taxPercentPerYear.required) || 
@@ -101,7 +101,7 @@
         Field Tax Property value must be between 0 and 100!  
       </span>
     </div>
-    <div class="input-field col s3">
+    <div class="input-field col s6 m3">
       <input placeholder="Insurance" id="insurance" 
         type="number" class="validate" v-model="insurance"
         :class="{ invalid: ($v.insurance.$dirty && !$v.insurance.required) || ($v.insurance.$dirty && !$v.insurance.numeric) || 

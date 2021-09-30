@@ -77,7 +77,7 @@
         <label for="bank">Bank</label>
       </div>
     </div>
-    <button class="waves-effect waves-light btn" @click.prevent="calculatePayment">Calculate</button>
+    <button class="btn waves-effect waves-light" @click.prevent="calculatePayment">Calculate</button>
   </form>
 </div>
 </template>
@@ -109,6 +109,7 @@ export default {
     insurance: 0,
     currentBank: '',
     _bank: {},
+    computation: {},
     select: null,
   }),
   validations() {
@@ -159,7 +160,8 @@ export default {
         { key: 'insurance', value: this.insurance / 12 }, 
         { key: 'tax', value: this.propertyTax }
       ];
-      this.$emit('setComputation', this.setComputation());
+      this.setComputation();
+      this.$emit('getComputation', this.getComputation());
       this.$emit('updateChart', data);
     },
     updateValues() {
@@ -185,7 +187,7 @@ export default {
       this.minDownPaymentPercent = Math.round(parseFloat(this.minPayment / this.homePrice * 100) * 100) / 100;
     },
     setComputation() {
-      return {
+      this.computation = {
         bankname: this._bank.name,
         date: new Date(),
         total: +this.monthlyPayment,
@@ -197,15 +199,10 @@ export default {
         imprestpercent: +this.minDownPaymentPercent,
         term: +this.loanTerm,
         interestrate: +this.interestRate,
-      }
+      };
     },
-    checkValidations() {
-      if(this.$v.$invalid) {
-        this.$v.$touch();
-        return false;
-      } else {
-        return true;
-      }
+    getComputation() {
+      return this.computation;
     },
     reset() {
       this.$v.$reset();
@@ -247,10 +244,27 @@ export default {
     margin-bottom: 2rem;
   }
   .image {
+    max-width: 303px;
     width: 100%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
   }
   .align-center {
     display: flex;
     align-items: center;
+  }
+  @media only screen and (max-width: 620px) {
+    .btn {
+      width: 100%;
+    }
+  }
+  @media only screen and (min-width: 620px) and (max-width: 900px) {
+    .btn {
+      display: block;
+      width: 80%;
+      margin-right: auto;
+      margin-left: auto;
+    }
   }
 </style>

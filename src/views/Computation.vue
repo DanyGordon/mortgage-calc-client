@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="row">
     <Loader v-if="loading" />
 
     <div v-else>
@@ -7,7 +7,7 @@
         <h3>Computation {{ recordId }} | {{ bankname }}</h3>
       </div>
 
-      <div class="page-content">
+      <div class="col s12 page-content">
         <div class="card card-paddined">
           <header class="card-header">
             <div class="left">
@@ -196,5 +196,22 @@ export default {
     border-top: 1px solid #cacaca;
     display: flex;
     justify-content: flex-end;
+  }
+
+  @media only screen and (max-width: 600px) {
+    .card-body {
+      flex-direction: column;
+    }
+
+    .values-conatiner {
+      border: none;
+    }
+  }
+
+  @media only screen and (min-width: 600px) and (max-width: 820px) {
+    .card-header {
+      display: flex;
+      flex-direction: column;
+    }
   }
 </style>

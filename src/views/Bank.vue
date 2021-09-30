@@ -1,10 +1,10 @@
 <template>
-  <div>
+  <div class="row">
     <div class="page-title">
       <h3>Bank</h3>
     </div>
 
-    <div class="page-content">
+    <div class="col s12 page-content">
       <Loader v-if="loading" />
 
       <section v-else class="card">
@@ -90,6 +90,8 @@ export default {
  .card {
    max-width: 1000px;
    min-width: 300px;
+   display: flex;
+   flex-direction: column;
    margin: 1rem auto;
    padding: 2rem;
  }

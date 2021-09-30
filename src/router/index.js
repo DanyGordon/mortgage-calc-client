@@ -79,13 +79,8 @@ const routes = [
   },
   {
     path: '*',
-<<<<<<< HEAD
-    redirect: { 
-      path: '/'
-=======
     redirect: {
       path: '/',
->>>>>>> 835710a41cd1fce6df0ea4612d21f3258066db2b
     }
   }
 ]
