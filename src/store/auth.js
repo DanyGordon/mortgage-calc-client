@@ -18,21 +18,29 @@ export default {
           if(token) {
             localStorage.setItem('token', token);
             dispatch('getUserInfo');
+            return true;
           }
+        } else {
+          throw new Error(res.status);
         }
       } catch (err) {
-        console.log(err);
         commit('setError', err);
+        return false;
       }
     },
     async register({ commit }, { email, password, name }) {
       try {
         const body = JSON.stringify({ email, password, name });
-        await fetch(config.base + '/account/register', { method: 'POST', headers: {
+        const res = await fetch(config.base + '/account/register', { method: 'POST', headers: {
           'Content-Type': 'application/json;charset=utf-8'
         }, body });
+        if(!res.ok) {
+          throw new Error(res.status);
+        }
+        return true;
       } catch (err) {
         commit('setError', err);
+        return false;
       }
     },
     async getUserInfo({ commit }) {
@@ -46,7 +54,6 @@ export default {
           localStorage.setItem('uid', uid);
         }
       } catch (err) {
-        console.log(err);
         commit('setError', err);
       }
     },

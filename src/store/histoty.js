@@ -15,7 +15,6 @@ export default {
           return null;
         }
       } catch (err) {
-        console.log(err);
         commit('setError', err);
         return null;
       }
@@ -29,12 +28,11 @@ export default {
           return null;
         }
       } catch (err) {
-        console.log(err);
         commit('setError', err);
         return null;
       }
     },
-    async createRecord({ commit, dispatch }, { bankId, formData }) {
+    async createRecord({ commit }, { bankId, formData }) {
       try {
         const body = JSON.stringify(formData);
         const res = await fetch(config.base + `/banks/${bankId}/history`, { 
@@ -46,19 +44,22 @@ export default {
           body
         });
         if(res.ok) {
-          return await dispatch('getAllRecords', bankId);
+          return true;
         }
       } catch (err) {
-        console.log(err);
         commit('setError', err);
+        return null;
       }
     },
     async deleteRecord({ commit }, { bankId, id }) {
       try {
-        await fetch(config.base + `/banks/${bankId}/history/${id}`, { method: 'DELETE', headers: { "Authorization": 'Bearer ' + localStorage.getItem('token') } });
+        const res = await fetch(config.base + `/banks/${bankId}/history/${id}`, { method: 'DELETE', headers: { "Authorization": 'Bearer ' + localStorage.getItem('token') } });
+        if(res.ok) {
+          return true;
+        }
       } catch (err) {
-        console.log(err);
         commit('setError', err);
+        return null;
       }
     }
   },

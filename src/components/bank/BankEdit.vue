@@ -170,8 +170,7 @@ export default {
   },
   methods: {
     updateInputes() {
-      this.banks
-        .filter(bank => bank.name === this.current)
+      this.banks.filter(bank => bank.name === this.current)
         .map(bank => Object.keys(bank)
           .filter(k => k !== 'id')
           .forEach(k => this[k] = bank[k]));
@@ -194,20 +193,23 @@ export default {
         insurance: this.insurance,
       }
 
-      await this.$store.dispatch('updateBank', { id, ...formData });
+      const updated = await this.$store.dispatch('updateBank', { id, ...formData });
 
-      this.$v.$reset();
-      this.current = '';
-      setTimeout(() => this.select = M.FormSelect.init(this.$refs.select), 0);
-      this.name = '';
-      this.maxLoan = 0;
-      this.loanTerm = 0;
-      this.interestRate = 0;
-      this.minDownPaymentPercent = 0;
-      this.taxPercentPerYear = 0;
-      this.insurance = 0;
+      if(updated) {
+        M.toast({ html: `Successfully updated ${this.name}` });
+        this.$v.$reset();
+        this.current = '';
+        setTimeout(() => this.select = M.FormSelect.init(this.$refs.select), 0);
+        this.name = '';
+        this.maxLoan = 0;
+        this.loanTerm = 0;
+        this.interestRate = 0;
+        this.minDownPaymentPercent = 0;
+        this.taxPercentPerYear = 0;
+        this.insurance = 0;
 
-      this.$emit('updated', id);
+        this.$emit('updated', updated);
+      }
     },
     destroyed() {
       this.select.destroy();

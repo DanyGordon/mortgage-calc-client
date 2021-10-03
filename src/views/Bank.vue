@@ -47,11 +47,9 @@ export default {
     banks: [],
     select: null
   }),
-  created() {
-    this.action = this.capitalizeString(this.$route.query.action) || 'Create';
-  },
   async mounted() {
     this.loading = true;
+    this.action = this.capitalizeString(this.$route.query.action) || 'Create';
     this.banks = await this.$store.dispatch('getAllBanks');
     if(!this.banks.length) {
       this.disabled = true;
@@ -61,18 +59,18 @@ export default {
   },
   computed: {
     current() {
-      return 'Bank' + this.action;
+      return 'Bank' + (this.action || 'Create');
     }
   },
   methods: {
     capitalizeString(string) {
-      return string ? string[0].toUpperCase() + string.slice(1) : null;
+      return string ? string[0].toUpperCase() + string.slice(1) : undefined;
     },
-    async updateBanks(id) {
-      const indx = this.banks.findIndex(bank => bank.id === id);
+    async updateBanks(bank) {
+      const indx = this.banks.findIndex(b => b.id === bank.id);
       this.banks = [
         ...this.banks.slice(0, indx),
-        await this.$store.dispatch('getBankById', { id }),
+        bank,
         ...this.banks.slice(indx + 1)
       ]
     }

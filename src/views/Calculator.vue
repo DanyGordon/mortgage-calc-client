@@ -96,8 +96,6 @@ export default {
     }
     this.loading = false;
   },
-  
-  
   methods: {
     setMonthlyPayment(sum) {
       this.monthlyPayment = sum;
@@ -115,6 +113,7 @@ export default {
       const bankId = this.bank.id;
       const formData = { ...this.computation };
       await this.$store.dispatch('createRecord', { bankId, formData});
+      M.toast({ html: `Successfully save Computation!` });
       this.$refs.input.reset();
     }
   },

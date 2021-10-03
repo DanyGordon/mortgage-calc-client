@@ -61,12 +61,11 @@ export default {
       }
       
       const formData = { email: this.email, password: this.password };
-
-      try {
-        await this.$store.dispatch('login', formData);
+      const status = await this.$store.dispatch('login', formData);
+      if(status) {
         this.$router.push('/');
-      } catch (error) {
-        console.log(error);
+      } else {
+        M.toast({ html: `${this.$store.getters.error.message === '401' ? 'Incorrect email or password!' : 'Sory, but something went wrong. Try again'}` });
       }
     }
   }

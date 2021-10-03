@@ -161,16 +161,19 @@ export default {
         insurance: this.insurance,
       };
 
-      await this.$store.dispatch('createNewBank', formData);
+      const isSuccess = await this.$store.dispatch('createNewBank', formData);
 
-      this.$v.$reset();
-      this.name = '';
-      this.maxLoan = 0;
-      this.loanTerm = 0;
-      this.interestRate = 0;
-      this.minDownPaymentPercent = 0;
-      this.taxPercentPerYear = 0;
-      this.insurance = 0;
+      if(isSuccess) {
+        M.toast({ html: `Successfully created ${this.name}!` });
+        this.$v.$reset();
+        this.name = '';
+        this.maxLoan = 0;
+        this.loanTerm = 0;
+        this.interestRate = 0;
+        this.minDownPaymentPercent = 0;
+        this.taxPercentPerYear = 0;
+        this.insurance = 0;
+      }
     }
   }
 }

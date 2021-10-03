@@ -27,14 +27,15 @@
             <td>{{ record.date | date }}</td>
             <td>{{ record.initialloan | currency }}</td>
             <td>
-              <a class="btn-floating action red accent-4 modal-trigger mr-1 ml-1" :href="`#${record.id}`" 
+              <a class="btn-floating action red accent-4 modal-trigger mr-1 ml-1" :href="`#${record.id}`"
+                v-tooltip="'Delete this Record'"
                 @click.prevent="targetDelete(record.id)"
               >
                 <i class="material-icons">delete</i>
               </a>
             </td>
             <td>
-              <button class="btn-small btn" @click="$router.push(`/history/${bankId}/${record.id}`)">
+              <button class="btn-small btn" @click="$router.push(`/history/${bankId}/${record.id}`)" v-tooltip="'View Details'">
                 <i class="material-icons">open_in_new</i>
               </button>
             </td>
@@ -112,11 +113,13 @@ export default {
       this.toDelete = id;
     },
     async confirmDelete() {
-      this.loading = true;
-      await this.$store.dispatch('deleteRecord', { bankId: this.bankId, id: this.toDelete });
-      this.records = await this.$store.dispatch('getAllRecords', { bankId: this.bankId });
-      this.setup();
-      this.loading = false;
+      const isSuccess = await this.$store.dispatch('deleteRecord', { bankId: this.bankId, id: this.toDelete });
+      if(isSuccess) {
+        M.toast({ html: `Successfully deleted Record ${this.toDelete}` });
+        this.toDelete = null;
+        this.records = await this.$store.dispatch('getAllRecords', { bankId: this.bankId });
+        this.setup();
+      }
     }
   }
 }

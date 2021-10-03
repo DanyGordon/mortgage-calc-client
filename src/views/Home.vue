@@ -34,12 +34,14 @@
               <router-link 
                 :to="`/bank?action=edit&bank=${bank.name}`" 
                 class="btn-floating action grey mr-1 ml-1"
+                v-tooltip="'Edit this bank'"
               >
                 <i class="material-icons">edit</i>
               </router-link>
               <a 
                 class="btn-floating action red accent-4 modal-trigger mr-1 ml-1" 
-                :href="`#${bank.name}`" 
+                :href="`#${bank.name}`"
+                v-tooltip="'Delete this bank'"
                 @click.prevent="targetDelete(bank.name)"
               >
                 <i class="material-icons">delete</i>
@@ -47,6 +49,7 @@
               <router-link 
                 :to="`/calculator?bank=${bank.name}`" 
                 class="btn-floating action mr-1 ml-1"
+                v-tooltip="'Calculate to this bank'"
               >
                 <i class="material-icons">arrow_forward</i>
               </router-link>
@@ -103,7 +106,7 @@
       </button>
     </div>
 
-    <div class="fixed-action-btn hide-on-med-and-down">
+    <div class="fixed-action-btn hide-on-med-and-down" data-position="left" v-tooltip="'Add new Bank'">
       <router-link 
         class="btn-floating btn-large blue-grey darken-2" 
         data-position="left" 
@@ -154,14 +157,14 @@ export default {
       this.setup();
     }
     this.loading = false;
-    this.$nextTick(function () {
+    setTimeout(() => {
       if(this.banks.length) {
         const dropdowns = this.$refs.table.querySelectorAll('.dropdown-trigger');
         if(dropdowns && dropdowns.length) {
           this.dropdowns = M.Dropdown.init(dropdowns, { constrainWidth: false, coverTrigger: false });
         }
       }
-    });
+    }, 0);
   },
   methods: {
     setup() {
@@ -175,10 +178,13 @@ export default {
     },
     async confirmDelete() {
       const bank = this.banks.find(bank => bank.name === this.toDelete);
-      await this.$store.dispatch('deleteBank', { id: bank.id });
-      this.toDelete = null;
-      this.banks = await this.$store.dispatch('getAllBanks');
-      this.setup();
+      const isSuccess = await this.$store.dispatch('deleteBank', { id: bank.id });
+      if(isSuccess) {
+        M.toast({ html: `Successfully deleted ${this.toDelete}!` });
+        this.toDelete = null;
+        this.banks = await this.$store.dispatch('getAllBanks');
+        this.setup();
+      }
     }
   },
   destroyed() {

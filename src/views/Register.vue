@@ -76,11 +76,11 @@ export default {
       
       const formData = { email: this.email, name: this.name, password: this.password };
 
-      try {
-        await this.$store.dispatch('register', formData);
+      const status = await this.$store.dispatch('register', formData);
+      if(status) {
         this.$router.push('/login');
-      } catch (error) {
-        console.log(error);
+      } else {
+        M.toast({ html: `${this.$store.getters.error === '403' ? 'User with this email already exist!' : 'Sory, but something went wrong. Try again'}` })
       }
     }
   }

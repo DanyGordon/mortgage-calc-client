@@ -11,7 +11,8 @@ const routes = [
     component: Home,
     meta: {
       layout: 'main',
-      auth: true
+      auth: true,
+      isFailedApi: false,
     }
   },
   {
@@ -20,7 +21,8 @@ const routes = [
     component: () => import('@/views/Login.vue'),
     meta: {
       layout: 'entry',
-      auth: false
+      auth: false,
+      isFailedApi: false,
     }
   },
   {
@@ -29,7 +31,8 @@ const routes = [
     component: () => import('@/views/Register.vue'),
     meta: {
       layout: 'entry',
-      auth: false
+      auth: false,
+      isFailedApi: false,
     }
   },
   {
@@ -38,7 +41,8 @@ const routes = [
     component: () => import('@/views/Bank.vue'),
     meta: {
       layout: 'main',
-      auth: true
+      auth: true,
+      isFailedApi: false,
     }
   },
   {
@@ -47,7 +51,8 @@ const routes = [
     component: () => import('../views/Calculator.vue'),
     meta: {
       layout: 'main',
-      auth: true
+      auth: true,
+      isFailedApi: false,
     }
   },
   {
@@ -56,7 +61,8 @@ const routes = [
     component: () => import('@/views/History.vue'),
     meta: {
       layout: 'main',
-      auth: true
+      auth: true,
+      isFailedApi: false,
     }
   },
   {
@@ -65,7 +71,8 @@ const routes = [
     component: () => import('@/views/Records.vue'),
     meta: {
       layout: 'main',
-      auth: true
+      auth: true,
+      isFailedApi: false,
     }
   },
   {
@@ -74,7 +81,8 @@ const routes = [
     component: () => import('@/views/Computation.vue'),
     meta: {
       layout: 'main',
-      auth: true
+      auth: true,
+      isFailedApi: false,
     }
   },
   {
@@ -97,12 +105,16 @@ router.beforeEach(async (to, from, next) => {
     const res = await fetch('http://localhost:3000/api/v1/account/validateJWT', { headers: { "Authorization": 'Bearer ' + localStorage.getItem('token') } });
     response = await res.json();
   } catch(err) {
-    console.log(err.message);
+    router.app.$store.commit('setError', err.message);
+    router.app.$children[0].isError = true;
+    next(false);
+    return;
   }
+
   if(requireAuth && (!response || !response['uid'])) {
     next('/login');
   } else {
-    next()
+    next();
   }
 
   if(!requireAuth && response && response['uid']) {

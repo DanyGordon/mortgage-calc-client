@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <Loader v-if="loading" />
+    <Error v-else-if="isError" />
     <component v-else :is="layout">
       <router-view />
     </component>
@@ -10,17 +11,24 @@
 <script>
 import MainLayout from '@/layouts/MainLayout.vue';
 import EntryLayout from '@/layouts/EntryLayout.vue';
+import Error from '@/components/Error.vue';
 
 export default {
   data: () => ({
-    loading: false,
     noConnection: false,
+    isError: null,
+    loading: false,
   }),
   mounted() {
     window.addEventListener('offline', this.offlineHandler);
     window.addEventListener('online', this.onlineHandler);
+    this.loading = !this.$route.meta.layout;
+    setTimeout(() => this.checkState(), 700);
   },
   computed: {
+    error() {
+      return this.$store.getters.error;     
+    },
     layout() {
       return (this.$route.meta.layout || 'Entry') + '-Layout';
     }
@@ -32,16 +40,32 @@ export default {
         if(this.loading) {
           this.noConnection = true;
           this.loading = false;
+          this.$store.commit('setError', 'No connection');
         }
       }, 10000);
     },
     onlineHandler() {
       this.loading = false;
       this.noConnection = false;
+      this.$store.commit('clearError');
+      window.location.reload();
+    },
+    checkState() {
+      this.loading = !this.$route.meta.layout && !this.$store.getters.error;
+      if(this.loading) {
+        setTimeout(() => this.checkState(), 2000);
+      }
+    }
+  },
+  watch: {
+    error() {
+      if(this.$store.getters.error === 'Failed to fetch') {
+        this.isError = true;
+      }
     }
   },
   components: {
-    MainLayout, EntryLayout
+    MainLayout, EntryLayout, Error
   },
   destroyed() {
     window.removeEventListener('offline', this.offlineHandler);
