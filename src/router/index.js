@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
+import store from '../store';
 
 Vue.use(VueRouter)
 
@@ -12,7 +13,6 @@ const routes = [
     meta: {
       layout: 'main',
       auth: true,
-      isFailedApi: false,
     }
   },
   {
@@ -22,7 +22,6 @@ const routes = [
     meta: {
       layout: 'entry',
       auth: false,
-      isFailedApi: false,
     }
   },
   {
@@ -32,7 +31,6 @@ const routes = [
     meta: {
       layout: 'entry',
       auth: false,
-      isFailedApi: false,
     }
   },
   {
@@ -42,7 +40,6 @@ const routes = [
     meta: {
       layout: 'main',
       auth: true,
-      isFailedApi: false,
     }
   },
   {
@@ -52,7 +49,6 @@ const routes = [
     meta: {
       layout: 'main',
       auth: true,
-      isFailedApi: false,
     }
   },
   {
@@ -62,7 +58,6 @@ const routes = [
     meta: {
       layout: 'main',
       auth: true,
-      isFailedApi: false,
     }
   },
   {
@@ -72,7 +67,6 @@ const routes = [
     meta: {
       layout: 'main',
       auth: true,
-      isFailedApi: false,
     }
   },
   {
@@ -82,8 +76,12 @@ const routes = [
     meta: {
       layout: 'main',
       auth: true,
-      isFailedApi: false,
     }
+  },
+  {
+    path: '/error',
+    name: 'ErrorAPI',
+    component: () => import('@/components/Error.vue'),
   },
   {
     path: '*',
@@ -100,27 +98,30 @@ const router = new VueRouter({
 
 router.beforeEach(async (to, from, next) => {
   const requireAuth = to.matched.some(record => record.meta.auth);
-  let response;
-  try {
-    const res = await fetch('http://localhost:3000/api/v1/account/validateJWT', { headers: { "Authorization": 'Bearer ' + localStorage.getItem('token') } });
-    response = await res.json();
-  } catch(err) {
-    router.app.$store.commit('setError', err.message);
-    router.app.$children[0].isError = true;
-    next(false);
-    return;
-  }
+  const isAuth = await store.dispatch('checkUserAuth');
+  if(to.name !== 'ErrorAPI') {
+    if(typeof isAuth === 'string' && isAuth.includes('Failed to fetch')) {
+      next('/error');
+      return;
+    }
 
-  if(requireAuth && (!response || !response['uid'])) {
-    next('/login');
-  } else {
-    next();
-  }
+    if(requireAuth && !isAuth) {
+      next('/login');
+    } else {
+      next();
+    }
 
-  if(!requireAuth && response && response['uid']) {
-    next('/');
+    if(!requireAuth && isAuth) {
+      next('/');
+    } else {
+      next();
+    }
   } else {
-    next();
+    if(typeof isAuth !== 'string' || !isAuth.includes('Failed to fetch')) {
+      next('/');
+    } else {
+      next();
+    }
   }
 });
 

@@ -57,6 +57,19 @@ export default {
         commit('setError', err);
       }
     },
+    async checkUserAuth({ commit }) {
+      try {
+        const res = await fetch('http://localhost:3000/api/v1/account/validateJWT', { headers: { "Authorization": 'Bearer ' + localStorage.getItem('token') } });
+        if(res.ok) {
+          return true;
+        } else {
+          return false;
+        }
+      } catch (err) {
+        commit('setError', err);
+        return err.message;
+      }
+    },
     async logout() {
       localStorage.removeItem('token');
       localStorage.removeItem('name');

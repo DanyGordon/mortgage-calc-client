@@ -12,6 +12,7 @@
 import MainLayout from '@/layouts/MainLayout.vue';
 import EntryLayout from '@/layouts/EntryLayout.vue';
 import Error from '@/components/Error.vue';
+import { mapGetters } from 'vuex';
 
 export default {
   data: () => ({
@@ -23,12 +24,10 @@ export default {
     window.addEventListener('offline', this.offlineHandler);
     window.addEventListener('online', this.onlineHandler);
     this.loading = !this.$route.meta.layout;
-    setTimeout(() => this.checkState(), 700);
+    setTimeout(() => this.checkState(), 400);
   },
   computed: {
-    error() {
-      return this.$store.getters.error;     
-    },
+    ...mapGetters(['error']),
     layout() {
       return (this.$route.meta.layout || 'Entry') + '-Layout';
     }
@@ -42,7 +41,7 @@ export default {
           this.loading = false;
           this.$store.commit('setError', 'No connection');
         }
-      }, 10000);
+      }, 7000);
     },
     onlineHandler() {
       this.loading = false;
@@ -59,7 +58,7 @@ export default {
   },
   watch: {
     error() {
-      if(this.$store.getters.error === 'Failed to fetch') {
+      if(this.$store.getters.error === 'Failed to fetch' || this.$store.getters.error === 'No connection') {
         this.isError = true;
       }
     }

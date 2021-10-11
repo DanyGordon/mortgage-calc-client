@@ -41,3 +41,11 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.card {
+  width: 550px;
+  padding: 2rem;
+  transform: translateX(0%) translateY(100%);
+}
+</style>
